@@ -19,6 +19,8 @@ Statements doesn't need with semicolons
 ```python
 if y < 43 or z > == 15:
     #goes here
+else:
+    #goes here
 elif not coursenum == 51:
     #goes here
 ```
