@@ -1,4 +1,4 @@
-## Python
+# Python
 
 Cover the basics of Python getting concepts from both CS50 and Brad Traversy Media Crash Courses.
 
@@ -19,9 +19,9 @@ Statements doesn't need with semicolons
 ```python
 if y < 43 or z > == 15:
     #goes here
-else:
-    #goes here
 elif not coursenum == 51:
+    #goes here
+else:
     #goes here
 ```
 
@@ -160,4 +160,36 @@ import numpy as np
 ### Python Syntax
 ```python
 python3 your_program.py
+```
+
+### [FLASK PYTHON BASED FRAMEWORK](https://linuxize.com/post/how-to-install-flask-on-ubuntu-18-04/)
+```
+sudo apt install python3-venv
+cd /home/kako77sub
+python3 -m venv venv
+source venv/bin/activate
+pip install Flask
+python -m flask --version
+```
+```python
+#~/py_projects/CS50/server/application.py
+```
+```python
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def hello_world():
+    return 'Hello World!'
+
+```
+
+```
+cd /home/kako77sub/Desktop/py_projects/CS50/server/
+export FLASK_APP=application.py
+flask run
+```
+### Deactivating the Virtual Environment
+```
+deactivate
 ```
