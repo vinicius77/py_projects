@@ -61,10 +61,53 @@ nums[len(nums):] = [7]
 nums_2 = [x for x in range(500)]
 
 nums_3 = list()
+
+# extending a list
+list_name = ["ele1", "ele2"]
+list_name.extend(["ele2", "ele3"]) 
+print(list_name)
+# ['ele1', 'ele2', 'ele2', 'ele3']
+
+# Fetching the first two elements
+list_name[:2]
+
+# Fetching from the fourth element until the end of the list
+list_name[4:]
+
+# Fetching an element by its key
+list_name.index("ele2") # returns the index 1
+
+# sorting a list
+list_name.sort(reverse = True) # reminds that sort does not return the sorted list; rather, it sorts the list in place.
+
+# creating lists with range function
+range_list = range(10) #[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+range_list_2 = range(3,7) #[3, 4, 5, 6]
+range_list_3 = range(1, 10, 2) #[1, 3, 5, 7, 9]
+
+for number in range_list:
+	print(number)
+
+# or
+
+for num in range(len(range_list):
+	print(range_list[num])
+
+
 ```
 
 ### Tuples
 Ordered and immutable sets of data (The order matters)
+
+#### Tuples Assignment
+```
+x = (40, 41, 42)
+
+a, b, c = 1, 2 ,3
+
+(age, years) = "8,17".split(",")
+
+```
 
 #### List of tuples
 ```python
@@ -82,6 +125,17 @@ for pres, year in presidents:
     print("In {1}, {0} took office".format(pres,year))
 ```
 
+#### Example of a function a tuple
+
+```
+def square(x):
+	AREA = x ** 2
+	PERIMETER = 4 * x
+	print(f"Perimeter and area of a square {PERIMETER} {AREA}.")
+
+	return (PERIMETER ,AREA)
+``` 
+
 ### Dictionaries (Hash Table) key-value pairs
 ```python
 pizzas = {
@@ -90,6 +144,8 @@ pizzas = {
     "vegetable": 11,
     "buffalo chicken": 12
 }
+
+people = { "name": "John Doe"}
 
 pizzas["cheese"] = 8
 
@@ -109,6 +165,28 @@ for pie, price in pizzas.items():
 
 for pie, price in pizzas.items():
     print("A whole {} pizza costs ${}".format(pie, price))
+```
+
+```
+# Calculates money spent in a supermarket list
+prices = {
+	"spaghetti": 4,
+    "lasagna": 3,
+    "hamburger": 2
+}
+
+quantity = {
+	"spaghetti": 6,
+    "lasagna": 4,
+    "hamburger": 3
+}
+ 
+money_spent = 0
+ 
+for key in prices:
+     money_spent += (prices[key] * quantity[key])
+
+print(money_spent)
 ```
 
 ### Variable Interpolation
@@ -152,9 +230,24 @@ jane.print()
 * No more semi-colon
 * Tabs and identation are essentials
 
-### Including files (Modules)
+### Including files (Importing Modules)
 ```python
 import numpy as np
+
+import math # math.sqrt(25)
+from math import sqrt # sqrt(16)
+from math import sqrt as s # s(4)
+import math as m # m.sqrt(36)
+from math import * #sqrt(81)
+
+```
+
+### help with modules
+```python
+
+help(math)
+
+help(math.sqrt)
 ```
 
 ### Python Syntax
