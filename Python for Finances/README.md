@@ -241,5 +241,176 @@ $ anaconda activate
 $ pip install pandas_datareader
 ```
 
+### Importing and organizing data (PART III)
+```
+$ pip install quandl
+```
+
+```python
+import quandl
+# https://www.quandl.com/tools/python
+
+# GPD: Gross domestic product
+
+# Gross domestic product is a monetary measure of the market value of all the final goods and services
+# produced in a specific time period.
+
+# FRED: Short for Federal Reserve Economic Data, FRED is an online database consisting of hundred of thousands of economic data time series from scores of national, international, public, and private sources.
+
+# For example, to get US GDP from FRED, just do this:
+mydata_01 = quandl.get("FRED/GDP")
+
+mydata_01.tail()
+mydata_01.head()
+
+# saves the data in .csv format
+mydata_01.to_csv("/home/kako77sub/Desktop/example_01.csv")
+
+# reads the .csv file using pandas package
+mydata_02 = pd.read_csv("/home/kako77sub/Desktop/example_01.csv")
+
+# saves the data in .xlsx format 
+mydata_02.to_excel("/home/kako77sub/Desktop/example_02.xlsx")
+
+# reads the .xlsx file data using pandas package
+mydata_03 = pd.read_excel("/home/kako77sub/Desktop/example_02.xlsx")
+```
+
+### Finance Calculating and Comparing Rates of Return in Python
+
+Profit x Loss
+
+- Bonds (%3 return rate / low risk / initial investment plus interest)
+- Stock (%6 return rate / high fluctuation / price change)
+
+#### SIMPLE RATE RETURN
+
+				 ending price - beginning price
+rate of return = _______________________________
+ 						beginning price
+
+Example: $116 - 105$
+		 ___________ => 10.5%
+			$105
+
+* Dividends => a reward that a copany gives to its shareholders
+* Assets => Something valuable that an entity owns, benefits from or has use of, in generating income.
+* Timeframe => given period (daily, weekly, monthly, annually)
+- When dealing with multiple assets over the same time frame
+
+```python
+PG["simple_return"] = (PG["Adj Close"] / PG["Adj Close"].shift(1)) - 1
+
+PG["simple_return"].plot(figsize=(8, 5))
+plt.show()
+
+average_returns_daily = PG["simple_return"].mean()
+print(average_returns_daily)
+
+average_returns_annually = PG["simple_return"].mean() * 250
+print(average_returns_annually)
+
+print(f"Annual return {round(average_returns_annually, 5) * 100} %")
+
+```
+
+#### LOGARITHMIC RATE RETURN
+
+Example: log $116 
+			______ => (log $116 - log $105) = 10%
+			 $105
+
+* log 100 = 2 because 10 ** 2 = 100 
+- When you make calculations about a single asset over time
+
+INVESTMENTS WITH DIFFERENT HOLDING PERIODS SHOULD NOT BE COMPARED 
+
+```python
+PG["logarithm_return"] = np.log(PG["Adj Close"] / PG["Adj Close"].shift(1))
+print(PG["logarithm_return"])
+
+PG["logarithm_return"].plot(figsize=(8,5))
+plt.show()
+
+daily_logarithm_return = PG["logarithm_return"].mean()
+print(daily_logarithm_return)
+
+annualy_logarithm_return = PG["logarithm_return"].mean() * 250
+print(annualy_logarithm_return)
+
+print(f"The anually logarithm return from Procter & Gamble is {round(annualy_logarithm_return, 5) * 100} %")
+
+```
+
+### Annual Rate of Return Calculation
+[Investopedia](https://www.investopedia.com/terms/a/annual-return.asp)
+
+### Calculating return of multiple investiments (Portfolio of securities)
+
+anually rate of return | weigth | security |     historical rate     | expected rate of return of the portfolio
+0,318524			   |   25%  |   Apple  | 25% * 0,318524 = 0,079  |
+0,153581			   |   25%  |    IBM   | 25% * 0,153581 = 0,038  | => = 0,178761
+0,116717			   |   25%  |    G E   | 25% * 0,116717 = 0,029  |
+0,126224			   |   25%  |   FORD   | 25% * 0,126224 = 0,031  |
+
+* Same calculation applies for differently weighted securities
+
+### Market Index
+- Provides an idea of how a given stock is performing (overall marketing performance)
+- Good proxy (approximation) for the development of the market
+
+### Most Known
+
+#### Standard & Poor's (S&P 500)
+- 500 largest listed companies
+- Market-cap weighted (if the market-cap of P&G is three times the market-cap of Nike, one porcent change in P&G 
+share price will have 3 times the impact of one porcent change in Nike's share price)
+- Diverse constituency (Makes the TRUE approximation of the US stock market)
+
+#### Dowjones
+- 30 large public stocks
+- equally weighted
+- Not a true representation of US market since it covers only 30 stocks
+
+#### Nasdaq
+- Group securities
+- Has most IT companies
+- Rate of return of tech stocks
+
+#### Others
+- FTSE (UK)
+- DAX30 (Germany)
+- Nikkei (Japan)
+- Shanghai Stock Exchange (CHINA)
+- MSCI (Global - includes stocks from all developed markets in the world)
+
+#### Why know about stock indices?
+
+- Stocks indices are an excellent comparator to understand how your own stocks are performing
+- They indicate what to expect if you invest in a diversified portfolio
+
+### Calculations
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
