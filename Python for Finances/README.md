@@ -389,7 +389,64 @@ share price will have 3 times the impact of one porcent change in Nike's share p
 - Stocks indices are an excellent comparator to understand how your own stocks are performing
 - They indicate what to expect if you invest in a diversified portfolio
 
-### Calculations
+### Calculating the rate of return of indices
+
+```python
+import numpy as np
+import pandas as pd
+from pandas_datareader import data as web
+import matplotlib.pyplot as plt
+
+# ^ indicates the dealing with market index data
+# ^GSPC => S&P 500
+# ^IXIC => Nasdaq
+# ^GDAXI => German DAX
+# ^FTSE => London FTSE
+tickers = ["^GSPC", "^IXIC", "^GDAXI"]
+
+indicies_data = pd.DataFrame()
+
+for ticker in tickers:
+    indicies_data[ticker] = web.DataReader(ticker, data_source="yahoo", start="1997-1-1")["Adj Close"]
+
+indicies_data.info()
+indicies_data.head()
+indicies_data.tail()
+
+# Normalizing Data
+
+(indicies_data / indicies_data.iloc[0] * 100).plot(figsize=(15,6))
+plt.show()
+
+# Calculating Indicies' Simple Returns
+indices_simple_return = (indicies_data / indicies_data.shift(1)) - 1
+indicies_data.tail()
+
+# Calculating the Annual Return of Marketing Indices
+
+annual_indicies_return = indices_simple_return.mean() * 250
+print(annual_indicies_return)
+
+# Putting the adjusted closing price of a company compared with the performance of one of the indicies
+
+# ^DJI => Down Jones
+tickers = ["PG", "^GSPC", "^DJI"]
+
+data_2 = pd.DataFrame()
+
+for ticker in tickers:
+    data_2[ticker] = web.DataReader(ticker, data_source="yahoo",start="1997-1-1")["Adj Close"]
+
+# Normalizating in Plotting Data
+
+(data_2 / data_2.iloc[0] * 100).plot(figsize=(15,6))
+plt.show()
+
+#This is how we can compare the performance of stocks in stock indicies.
+
+#(The first type of analysis that we need to perform when analysing stock market.)
+
+```
 
 
 
