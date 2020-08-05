@@ -448,9 +448,82 @@ plt.show()
 
 ```
 
+## How to measure (and forecast) a security's risk
 
+### Variability - Best measure of risk
 
+#### Statistics Measures (to quantity risks)
+- s2 => variance (measures the dispersion of a set of data points around the mean)
 
+**Formula:** the variance (s²) is equal (=) to the sum (∑) of the squares of the difference between a data point X and the mean (Ẍ) divided by N (the number of observations) - 1.
+
+e.g: s² = ∑(X - ẍ)²
+		___________
+			N - 1
+
+**In practice:**
+- if the mean of four data points is 15% (ẍ = 15)
+- calculating the dispersion of each of the four points and elevating to the second degree 
+(14% - 15%)² = 0.01%
+(16% - 15%)² = 0.01%
+(13% - 15%)² = 0.04%
+(17% - 15%)² = 0.04%
+∑ = 0.01% +0.01% +0.04% +0.04%
+∑ = 0.1%
+
+s² = 0.1% / (N - 1)
+s² = 0.1% / (4 - 1)
+s² = 0.033%
+s² = 0.00033 (<= the variance result)
+
+- s => standard deviation (the square root of the variance)
+(Greater the deviation is mean riskier)
+s = √s²
+s = √0.00033
+s = 1.8%
+
+### Benefits of portfolio diversification
+- Favorable macroeconomic conditions facilitate the business of all companies
+- In times of recession, consumers spending decreases and business suffer
+- Share prices are influenced by the state of the economy
+- The state of the economy impacts industries in a different way
+- Is better to invest in companies operating in different industries
+- There is a relationship between the prices of companies which will help us to optimize investment portfolios
+
+### Calculating the covariance between stocks
+(Measuring the relationship between stocks)
+
+**E.g.**(House Pricing) [House sizes and prices]
+
+Formula:
+(The correlation coefficient measures the relationship between two variables)
+x = house size / y = house price
+
+Pxy = (x - ẍ) * (y - ÿ)
+	___________________
+			σxσy
+
+House Listing
+Size     | Price	| (x - ẍ) * (y - ÿ)	
+673 sqft | $772.000 | (673 - 893.2) * (772 - 886600) = 25324.920
+785 sqft | $998.000 | (785 - 893.2) * (998 - 886600) = -12053.480
+1334 sqft| $999.000 | (1334 - 893.2) * (999 - 886600) = 49545.920
+699 sqft | $769.000 | (699 - 893.2) * (769 - 886600) = 22837.920
+975 sqft | $895.000 | (975 - 893.2) * (895 - 886600) = 687.120
+
+Average:
+Size = 893.2
+Prices = 886600
+
+SUM of all (x - ẍ) * (y - ÿ) => 86252.400
+
+Covariance (SUM / N - 1) => 21563.100
+
+- if covariance > 0 => The two variables (x,y) move in the same direction
+- if covariance < 0 => The two variables (x,y) move in the opposite direction
+- if covariance == 0 => The two variables (x,y) are independent
+
+### Correlation
 
 
 
