@@ -314,6 +314,79 @@ print(f"Annual return {round(average_returns_annually, 5) * 100} %")
 
 ```
 
+## Measuring the Correlation between Stocks
+
+### (1) Perfect Positive Correlation Coeficient
+- The entire variability of the second variable is explained by the first variable
+E.g. (Housing Prices)
+- House prices are directly proportionate to the house size
+- For every square foot of house size, the price increases by "X"
+- In this example, size is the only variable that determines house prices
+- It is called PERFECT POSITIVE CORRELATION because when added plus 1 additional square foot the price goes up plus x dollars (it moves in the same direction)
+
+* In reality, several variables have an impact on house prices (location, year of construction and so on)
+* In the same way, several variables detrmine share prices: (industry growth, profitability, regulatory environment)
+
+* The more similar the context in which two companies operate, the more correlation there will be between their share prices as they will be influenced by the same or similar facts.
+
+### (0) No Correlation Coeficient
+- Variables with 0 correlation are absolutely independent from each others
+E.g. Coffee price in Brazil x House prices in London
+
+### (-1) Negative Correlation Coeficient
+- Two variables that move in opposite directions
+#### Perfect Negative Correlation (-1)
+#### Imperfect Negative Correlation (between -1 and 0)
+
+E.g. Ice Cream Producers x Umbrella producers
+- People buy more ice cream when the weather is good, the reverse happens with umbrellas
+- Exists a negative correlation between the two, in other words, when a company makes more money the other won't.
+- This is the example of a situation where the prices of two companies are influenced by the same variable but the variable impacts their business in a different way.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #### LOGARITHMIC RATE RETURN
 
 Example: log $116 
