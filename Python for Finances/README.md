@@ -343,7 +343,72 @@ E.g. Ice Cream Producers x Umbrella producers
 - Exists a negative correlation between the two, in other words, when a company makes more money the other won't.
 - This is the example of a situation where the prices of two companies are influenced by the same variable but the variable impacts their business in a different way.
 
+### Considerating the risk of multiple securities in a portfolio
 
+- **Portfolio Variance:** If a portfolio contains two stocks its risk will be a function of the variance of the two stocks and the correlation between them.
+
+(a + b)² => a² + 2ab + b²
+
+* Example of the formula for two stocks:
+**(w1σ1 + w2σ2)² = w1²σ²1 + 2w1σ1w2σ2 + w2²σ²2ρ12**
+
+**The Formula Explained:**
+- weight1 to the second degree times of the variance of the first stock (w1σ1) plus
+- two times the product of weight1, weight2 and the covariance between the two stocks (2w1σ1w2σ2ρ12) plus
+- weight2 to the second degree times of the variance of the second stock (w2σ2)
+
+- **σ** = standard deviation (the square root of the Variance)
+- **w** = weight
+- **ρX,Y** = correlation of variables X and Y
+- **Reminder:** The sum of the stocks's weight, in this case w1σ1 + w2σ2, must be 1 or, in other words, 100% of the portfolio of stocks.
+
+```python
+import numpy as np
+import pandas as pd
+from pandas_datareader import data as web
+import matplotlib.pyplot as plt
+
+tickers = ["PG", "BEI.DE"]
+
+securities_data = pd.DataFrame()
+
+for ticker in tickers:
+    securities_data[ticker] = web.DataReader(ticker, data_source="yahoo", start="2007-1-1")["Adj Close"]
+
+# using np.log() because we will analise the data of the securities separately 
+securities_return = np.log(securities_data / securities_data.shift(1))
+
+#Equally weighted portfolio (of two stocks)
+weights = np.array([0.5, 0.5])
+
+# Diversifiable risk = portfolio variance - weighted annual variances
+PG_annual_variance = securities_return["PG"].var() * 250
+BEI_annual_variance = securities_return["BEI.DE"].var() * 250
+
+# Portfolio Variance
+pfolio_variance = np.dot(weights.T, np.dot(securities_return.cov() * 250, weights))
+
+# Diversifiable Risk
+diversifiable_risk = pfolio_variance - (weights[0] ** 2 * PG_annual_variance) - (weights[1] ** 2 * BEI_annual_variance)
+
+# round(diversifiable_risk * 100, 3) in percent
+
+# Non-Diversifiable Risk:
+non_diversifiable_risk = pfolio_variance - diversifiable_risk
+
+# or also this formula below must lead to the same result
+# non_diversifiable_risk_2 = (weights[0] ** 2 * PG_annual_variance) + (weights[1] ** 2 * BEI_annual_variance)
+
+```
+
+### Understanding Risk
+#### Undiversifiable / Systematic
+This component depends on the variance of each individual security.
+E.g. Recession of the economy, low consumer spending, war, forces of nature etc.
+
+#### Diversifiable risks / Idiosyncratic (Company Specific Risks)
+Is driven by company-specific events.
+- They can be eliminated if is invested in non-correlated assets, for instance, automotive, construction, energy, technology stocks.
 
 
 
