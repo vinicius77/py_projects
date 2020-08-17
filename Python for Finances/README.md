@@ -222,7 +222,7 @@ new_data = pd.DataFrame()
 
 for ticker in tickers:
 	new_data[ticker] = web.DataReader(ticker, data_source = "yahoo", start="1995-1-1")["Adj Close"]
-```                 
+``` 
 
 ### MUST have Python packages
 
@@ -410,14 +410,76 @@ E.g. Recession of the economy, low consumer spending, war, forces of nature etc.
 Is driven by company-specific events.
 - They can be eliminated if is invested in non-correlated assets, for instance, automotive, construction, energy, technology stocks.
 
+## Regression Analysis (Quantifies the relationship between two variables [dependent and independent/explanatory variables])
+- Useful when is needed forecast a future dependent variable with the help of patterns for the historical data.
 
+**E.g.** Houses (The larger a house, the higher its price)
+### Variables
+- Size (Explanatory Variable) *helps to explain why certains houses cost more.
+- Price (Dependent Variable) *as it has been explained
 
+If is known the value of the explanatory variable (size) it can be determined the value of the dependent variable (house's price).
 
+In real-life, size is not the only explanatory variable to determine house prices.
+### Simple Regression: Using only one variable (as the example above)
+e.g:
+y = house price
+x = house size
 
+Using a x/y plot each observation we see in the plot indicates that the two variables are connected, in other words, bigger houses higher prices.
 
+**Regression analysis** assumes the existence of a linear relationship between the two variables.
 
+One straight line is the best fit and can help to describe the report between all the data points we see in the plot. 
 
+### How do we draw the best-fitting line?
+- Find a line that minimizes the error observed between itself and actual observations
+- **Linear regression** calculates the error observed when using different lines and will determine which one contains the least error.
+Each deviation from the line is an **error** because it deviates from the prediction the line would have provided.
+- The best fitting line contains the least amount of estimation error.
 
+### Linear Equation: (The general equation of a straight line)
+**y = mx + b** or **y = βx + α**
+- m = slope of the line
+- b = the y intercept
+
+(The slope is a measure of how the line angles away from the horizontal) 
+
+### Multivariable Regression: Using more than one (explanatory) variable
+
+## How to distinguish good and bad regressions
+**E.g.** Houses
+- More than one variable determines house prices (location, neighborhood, year of construction and so on)
+- A simple regression will omit some importatnt factors, which will result in an estimation error. (It is useful but not perfect)
+- The **regression model** can be written as **Y = βx + α + error**
+- **error => residuals** (A residual is the vertical distance between a data point and the regression line)
+- The best fitting line minimizes the sum of the squared residuals
+- The coefficients found with this technique are called **Ordinary Least Squared (OLS) Regression**
+
+### Are all regressions created equal?
+- Certain variables are better at predicting other variables
+- House size is on of the better indicators of house prices (makes sense explore the relationship between the two variables through a regression.)
+- Owner's age in house prices in not a good indicator so doesn't make sense use this variable calculating a regression. (buyers will not be influenced for the age of the people who sells a house)
+- **Some regressions have higher explanatory power than others.**
+
+### Good vs Bad Regressions (Using the R square)
+
+How can we measure data dispersion and variability?
+- We use variance to measure the variability of data:
+**e.g:** s² = ∑(X - ẍ)²
+		      _________
+			    N - 1
+
+- **Total Sum of Squares (TSS):**
+Provides a sense of the variability of data
+**e.g:** TSS = ∑(X - ẍ)²
+
+### R Formula
+- R square varies between 0% and 100%. The higher it is, the more predictive power the model has
+**Formula:** R² = 1 - SSR / TSS
+
+**(SSR)** => The Sum of Squared Residuals 
+**(TSS)** => Total Sum of Squares
 
 
 
