@@ -313,207 +313,6 @@ print(average_returns_annually)
 print(f"Annual return {round(average_returns_annually, 5) * 100} %")
 
 ```
-
-## Measuring the Correlation between Stocks
-
-### (1) Perfect Positive Correlation Coeficient
-- The entire variability of the second variable is explained by the first variable
-E.g. (Housing Prices)
-- House prices are directly proportionate to the house size
-- For every square foot of house size, the price increases by "X"
-- In this example, size is the only variable that determines house prices
-- It is called PERFECT POSITIVE CORRELATION because when added plus 1 additional square foot the price goes up plus x dollars (it moves in the same direction)
-
-* In reality, several variables have an impact on house prices (location, year of construction and so on)
-* In the same way, several variables detrmine share prices: (industry growth, profitability, regulatory environment)
-
-* The more similar the context in which two companies operate, the more correlation there will be between their share prices as they will be influenced by the same or similar facts.
-
-### (0) No Correlation Coeficient
-- Variables with 0 correlation are absolutely independent from each others
-E.g. Coffee price in Brazil x House prices in London
-
-### (-1) Negative Correlation Coeficient
-- Two variables that move in opposite directions
-#### Perfect Negative Correlation (-1)
-#### Imperfect Negative Correlation (between -1 and 0)
-
-E.g. Ice Cream Producers x Umbrella producers
-- People buy more ice cream when the weather is good, the reverse happens with umbrellas
-- Exists a negative correlation between the two, in other words, when a company makes more money the other won't.
-- This is the example of a situation where the prices of two companies are influenced by the same variable but the variable impacts their business in a different way.
-
-### Considerating the risk of multiple securities in a portfolio
-
-- **Portfolio Variance:** If a portfolio contains two stocks its risk will be a function of the variance of the two stocks and the correlation between them.
-
-(a + b)² => a² + 2ab + b²
-
-* Example of the formula for two stocks:
-**(w1σ1 + w2σ2)² = w1²σ²1 + 2w1σ1w2σ2 + w2²σ²2ρ12**
-
-**The Formula Explained:**
-- weight1 to the second degree times of the variance of the first stock (w1σ1) plus
-- two times the product of weight1, weight2 and the covariance between the two stocks (2w1σ1w2σ2ρ12) plus
-- weight2 to the second degree times of the variance of the second stock (w2σ2)
-
-- **σ** = standard deviation (the square root of the Variance)
-- **w** = weight
-- **ρX,Y** = correlation of variables X and Y
-- **Reminder:** The sum of the stocks's weight, in this case w1σ1 + w2σ2, must be 1 or, in other words, 100% of the portfolio of stocks.
-
-```python
-import numpy as np
-import pandas as pd
-from pandas_datareader import data as web
-import matplotlib.pyplot as plt
-
-tickers = ["PG", "BEI.DE"]
-
-securities_data = pd.DataFrame()
-
-for ticker in tickers:
-    securities_data[ticker] = web.DataReader(ticker, data_source="yahoo", start="2007-1-1")["Adj Close"]
-
-# using np.log() because we will analise the data of the securities separately 
-securities_return = np.log(securities_data / securities_data.shift(1))
-
-#Equally weighted portfolio (of two stocks)
-weights = np.array([0.5, 0.5])
-
-# Diversifiable risk = portfolio variance - weighted annual variances
-PG_annual_variance = securities_return["PG"].var() * 250
-BEI_annual_variance = securities_return["BEI.DE"].var() * 250
-
-# Portfolio Variance
-pfolio_variance = np.dot(weights.T, np.dot(securities_return.cov() * 250, weights))
-
-# Diversifiable Risk
-diversifiable_risk = pfolio_variance - (weights[0] ** 2 * PG_annual_variance) - (weights[1] ** 2 * BEI_annual_variance)
-
-# round(diversifiable_risk * 100, 3) in percent
-
-# Non-Diversifiable Risk:
-non_diversifiable_risk = pfolio_variance - diversifiable_risk
-
-# or also this formula below must lead to the same result
-# non_diversifiable_risk_2 = (weights[0] ** 2 * PG_annual_variance) + (weights[1] ** 2 * BEI_annual_variance)
-
-```
-
-### Understanding Risk
-#### Undiversifiable / Systematic
-This component depends on the variance of each individual security.
-E.g. Recession of the economy, low consumer spending, war, forces of nature etc.
-
-#### Diversifiable risks / Idiosyncratic (Company Specific Risks)
-Is driven by company-specific events.
-- They can be eliminated if is invested in non-correlated assets, for instance, automotive, construction, energy, technology stocks.
-
-## Regression Analysis (Quantifies the relationship between two variables [dependent and independent/explanatory variables])
-- Useful when is needed forecast a future dependent variable with the help of patterns for the historical data.
-
-**E.g.** Houses (The larger a house, the higher its price)
-### Variables
-- Size (Explanatory Variable) *helps to explain why certains houses cost more.
-- Price (Dependent Variable) *as it has been explained
-
-If is known the value of the explanatory variable (size) it can be determined the value of the dependent variable (house's price).
-
-In real-life, size is not the only explanatory variable to determine house prices.
-### Simple Regression: Using only one variable (as the example above)
-e.g:
-y = house price
-x = house size
-
-Using a x/y plot each observation we see in the plot indicates that the two variables are connected, in other words, bigger houses higher prices.
-
-**Regression analysis** assumes the existence of a linear relationship between the two variables.
-
-One straight line is the best fit and can help to describe the report between all the data points we see in the plot. 
-
-### How do we draw the best-fitting line?
-- Find a line that minimizes the error observed between itself and actual observations
-- **Linear regression** calculates the error observed when using different lines and will determine which one contains the least error.
-Each deviation from the line is an **error** because it deviates from the prediction the line would have provided.
-- The best fitting line contains the least amount of estimation error.
-
-### Linear Equation: (The general equation of a straight line)
-**y = mx + b** or **y = βx + α**
-- m = slope of the line
-- b = the y intercept
-
-(The slope is a measure of how the line angles away from the horizontal) 
-
-### Multivariable Regression: Using more than one (explanatory) variable
-
-## How to distinguish good and bad regressions
-**E.g.** Houses
-- More than one variable determines house prices (location, neighborhood, year of construction and so on)
-- A simple regression will omit some importatnt factors, which will result in an estimation error. (It is useful but not perfect)
-- The **regression model** can be written as **Y = βx + α + error**
-- **error => residuals** (A residual is the vertical distance between a data point and the regression line)
-- The best fitting line minimizes the sum of the squared residuals
-- The coefficients found with this technique are called **Ordinary Least Squared (OLS) Regression**
-
-### Are all regressions created equal?
-- Certain variables are better at predicting other variables
-- House size is on of the better indicators of house prices (makes sense explore the relationship between the two variables through a regression.)
-- Owner's age in house prices in not a good indicator so doesn't make sense use this variable calculating a regression. (buyers will not be influenced for the age of the people who sells a house)
-- **Some regressions have higher explanatory power than others.**
-
-### Good vs Bad Regressions (Using the R square)
-
-How can we measure data dispersion and variability?
-- We use variance to measure the variability of data:
-**e.g:** s² = ∑(X - ẍ)²
-		      _________
-			    N - 1
-
-- **Total Sum of Squares (TSS):**
-Provides a sense of the variability of data
-**e.g:** TSS = ∑(X - ẍ)²
-
-### R Formula
-- R square varies between 0% and 100%. The higher it is, the more predictive power the model has
-**Formula:** R² = 1 - SSR / TSS
-
-**(SSR)** => The Sum of Squared Residuals 
-**(TSS)** => Total Sum of Squares
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #### LOGARITHMIC RATE RETURN
 
 Example: log $116 
@@ -723,7 +522,245 @@ Covariance (SUM / N - 1) => 21563.100
 - if covariance < 0 => The two variables (x,y) move in the opposite direction
 - if covariance == 0 => The two variables (x,y) are independent
 
-### Correlation
+## Correlation (Measuring the Correlation between Stocks)
+
+### (1) Perfect Positive Correlation Coeficient
+- The entire variability of the second variable is explained by the first variable
+E.g. (Housing Prices)
+- House prices are directly proportionate to the house size
+- For every square foot of house size, the price increases by "X"
+- In this example, size is the only variable that determines house prices
+- It is called PERFECT POSITIVE CORRELATION because when added plus 1 additional square foot the price goes up plus x dollars (it moves in the same direction)
+
+* In reality, several variables have an impact on house prices (location, year of construction and so on)
+* In the same way, several variables detrmine share prices: (industry growth, profitability, regulatory environment)
+
+* The more similar the context in which two companies operate, the more correlation there will be between their share prices as they will be influenced by the same or similar facts.
+
+### (0) No Correlation Coeficient
+- Variables with 0 correlation are absolutely independent from each others
+E.g. Coffee price in Brazil x House prices in London
+
+### (-1) Negative Correlation Coeficient
+- Two variables that move in opposite directions
+#### Perfect Negative Correlation (-1)
+#### Imperfect Negative Correlation (between -1 and 0)
+
+E.g. Ice Cream Producers x Umbrella producers
+- People buy more ice cream when the weather is good, the reverse happens with umbrellas
+- Exists a negative correlation between the two, in other words, when a company makes more money the other won't.
+- This is the example of a situation where the prices of two companies are influenced by the same variable but the variable impacts their business in a different way.
+
+### Considerating the risk of multiple securities in a portfolio
+
+- **Portfolio Variance:** If a portfolio contains two stocks its risk will be a function of the variance of the two stocks and the correlation between them.
+
+(a + b)² => a² + 2ab + b²
+
+* Example of the formula for two stocks:
+**(w1σ1 + w2σ2)² = w1²σ²1 + 2w1σ1w2σ2ρ12 + w2²σ²2**
+
+**The Formula Explained:**
+- weight1 to the second degree times of the variance of the first stock (w1σ1) plus
+- two times the product of weight1, weight2 and the covariance between the two stocks (2w1σ1w2σ2ρ12) plus
+- weight2 to the second degree times of the variance of the second stock (w2σ2)
+
+- **σ** = standard deviation (the square root of the Variance)
+- **w** = weight
+- **ρX,Y** = correlation of variables X and Y
+- **Reminder:** The sum of the stocks's weight, in this case w1σ1 + w2σ2, must be 1 or, in other words, 100% of the portfolio of stocks.
+
+```python
+import numpy as np
+import pandas as pd
+from pandas_datareader import data as web
+import matplotlib.pyplot as plt
+
+tickers = ["PG", "BEI.DE"]
+
+securities_data = pd.DataFrame()
+
+for ticker in tickers:
+    securities_data[ticker] = web.DataReader(ticker, data_source="yahoo", start="2007-1-1")["Adj Close"]
+
+# using np.log() because we will analise the data of the securities separately 
+securities_return = np.log(securities_data / securities_data.shift(1))
+
+#Equally weighted portfolio (of two stocks)
+weights = np.array([0.5, 0.5])
+
+# Diversifiable risk = portfolio variance - weighted annual variances
+PG_annual_variance = securities_return["PG"].var() * 250
+BEI_annual_variance = securities_return["BEI.DE"].var() * 250
+
+# Portfolio Variance
+pfolio_variance = np.dot(weights.T, np.dot(securities_return.cov() * 250, weights))
+
+# Diversifiable Risk
+diversifiable_risk = pfolio_variance - (weights[0] ** 2 * PG_annual_variance) - (weights[1] ** 2 * BEI_annual_variance)
+
+# round(diversifiable_risk * 100, 3) in percent
+
+# Non-Diversifiable Risk:
+non_diversifiable_risk = pfolio_variance - diversifiable_risk
+
+# or also this formula below must lead to the same result
+# non_diversifiable_risk_2 = (weights[0] ** 2 * PG_annual_variance) + (weights[1] ** 2 * BEI_annual_variance)
+
+```
+
+### Understanding Risk
+#### Undiversifiable / Systematic
+This component depends on the variance of each individual security.
+E.g. Recession of the economy, low consumer spending, war, forces of nature etc.
+
+#### Diversifiable risks / Idiosyncratic (Company Specific Risks)
+Is driven by company-specific events.
+- They can be eliminated if is invested in non-correlated assets, for instance, automotive, construction, energy, technology stocks.
+
+## Regression Analysis (Quantifies the relationship between two variables [dependent and independent/explanatory variables])
+- Useful when is needed forecast a future dependent variable with the help of patterns for the historical data.
+
+**E.g.** Houses (The larger a house, the higher its price)
+### Variables
+- Size (Explanatory Variable) *helps to explain why certains houses cost more.
+- Price (Dependent Variable) *as it has been explained
+
+If is known the value of the explanatory variable (size) it can be determined the value of the dependent variable (house's price).
+
+In real-life, size is not the only explanatory variable to determine house prices.
+### Simple Regression: Using only one variable (as the example above)
+e.g:
+y = house price
+x = house size
+
+Using a x/y plot each observation we see in the plot indicates that the two variables are connected, in other words, bigger houses higher prices.
+
+**Regression analysis** assumes the existence of a linear relationship between the two variables.
+
+One straight line is the best fit and can help to describe the rapport (a relationship characterized by agreement, mutual understanding, or empathy that makes communication possible or easy) between all the data points we see in the plot. 
+
+### How do we draw the best-fitting line?
+- Find a line that minimizes the error observed between itself and actual observations
+- **Linear regression** calculates the error observed when using different lines and will determine which one contains the least error.
+Each deviation from the line is an **error** because it deviates from the prediction the line would have provided.
+- The best fitting line contains the least amount of estimation error.
+
+### Linear Equation: (The general equation of a straight line)
+**y = mx + b** or **y = βx + α**
+- m = slope of the line
+- b = the y intercept
+
+(The **slope** is a measure of how the line angles away from the horizontal)
+(The **Y-Intercept** of a line is the point where a line's graph intersects (crosses) the Y-axis. 
+**E.g.** a y-intercept of 3 means that a line's graph intersects the Y-axis at the point (0,3)) 
+
+### Multivariable Regression: Using more than one (explanatory) variable
+
+## How to distinguish good and bad regressions
+**E.g.** Houses
+- More than one variable determines house prices (location, neighborhood, year of construction and so on)
+- A simple regression will omit some importatnt factors, which will result in an estimation error. (It is useful but not perfect)
+- The **regression model** can be written as **Y = βx + α + error**
+- **error => residuals** (A residual is the vertical distance between a data point and the regression line)
+- The best fitting line minimizes the sum of the squared residuals
+- The coefficients found with this technique are called **Ordinary Least Squared (OLS) Estimates**
+
+### Are all regressions created equal?
+- Certain variables are better at predicting than other variables
+- House size is on of the better indicators of house prices (makes sense explore the relationship between the two variables through a regression.)
+- Owner's age in house prices is not a good indicator so doesn't make sense use this variable calculating a regression. (buyers will not be influenced for the age of the people who sells a house)
+- **Some regressions have higher explanatory power than others.**
+
+### Good vs Bad Regressions (Using the R square)
+
+How can we measure data dispersion and variability?
+- We use variance to measure the variability of data:
+**e.g:** s² = ∑(X - ẍ)²
+		      _________
+			    N - 1
+
+- **Total Sum of Squares (TSS):**
+Provides a sense of the variability of data
+**e.g:** TSS = ∑(X - ẍ)²
+
+### R Formula
+- R square varies between 0% and 100%. The higher it is, the more predictive power the model has
+**Formula:** R² = 1 - SSR / TSS
+
+**(SSR)** => The Sum of Squared Residuals 
+**(TSS)** => Total Sum of Squares
+
+## (Harry) Markowitz Theory
+- Proves the existence of an efficient set of portfolios 
+- Investors should understand the relationship between the securities in their PORTFOLIO.
+- The combination of securities with little correlation allows investors to optimize their return without assuming additional risks
+- Diversified portfolio => Higher returns and no additional risks
+- Investors are risk averse (Investor is an investor who prefers lower returns with known risks rather than higher returns with unknown risks.)
+
+## Calculating the Standard Deviation for Porfolio 1 (EXPLAINED [Excel File]):
+
+```
+Weight A ^ 2 [100% ^ 2]
+* variance of security A ^ 2 (standard deviation [5% ^ 2])
++ Weight B ^ 2 [0% ^ 2]
+* variance of security B ^ 2 (standard deviation [8% ^ 2])
++ 2 * the correlation coefficient between stocks A and B [2 * 30%]
+* the weights of the two stocks [100% * 0%]
+* the standard deviation of two stocks [5% * 8%]
+```
+
+**(w1σ1 + w2σ2)² = w1²σ²1 + 2w1σ1w2σ2ρ12 + w2²σ²2**
+ 
+w1²σ²1 = **100% ^ 2 * 5% ^ 2**
++
+2w1σ1w2σ2ρ12 = **2 * 30% * 100% * 0% * 5% * 8%**
++
+w2²σ²2 = **0% ^ 2 * 8% ^ 2**
+
+**(w1σ1 + w2σ2)²** = 
+
+- This is the diversifiable component of the portfolio
+- The lower the correlation coefficient the greater the diversification effect at the combination of two stocks will have
+- To obtain the standard deviation of the portfolio we need the square root of the number ^ (1/2).
+
+(Plots in a two axis chart where the **horizontal axis contains the risk of the portfolio** the and the **vertical axis contains its expected return**
+
+We obtained the typical **shape of Markowitz Frontier** [Efficient Frontier])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
