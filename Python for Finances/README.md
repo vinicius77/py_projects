@@ -694,7 +694,7 @@ Provides a sense of the variability of data
 ## (Harry) Markowitz Theory
 - Proves the existence of an efficient set of portfolios 
 - Investors should understand the relationship between the securities in their PORTFOLIO.
-- The combination of securities with little correlation allows investors to optimize their return without assuming additional risks
+- The combination of securities with LITTLE correlation allows investors to optimize their return without assuming additional risks
 - Diversified portfolio => Higher returns and no additional risks
 - Investors are risk averse (Investor is an investor who prefers lower returns with known risks rather than higher returns with unknown risks.)
 
@@ -727,6 +727,10 @@ w2²σ²2 = **0% ^ 2 * 8% ^ 2**
 (Plots in a two axis chart where the **horizontal axis contains the risk of the portfolio** the and the **vertical axis contains its expected return**
 
 We obtained the typical **shape of Markowitz Frontier** [Efficient Frontier])
+
+
+### Obtaining The Efficient Frontier Part I, II, III
+- Explained in the Jupyter Notebook of the same name.
 
 
 

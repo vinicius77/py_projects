@@ -92,8 +92,20 @@ for number in range_list:
 
 for num in range(len(range_list):
 	print(range_list[num])
+```
 
+### Enumerate
+```python
 
+### Another Example Which Can Be Replaced By The Enumerate Function
+
+a_list = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+
+for i in range(len(a_list)):
+    print('The value at position {} is {}.'.format(i, a_list[i]))
+
+for i, val in enumerate(a_list):
+    print('The value at position {} is {}.'.format(i, val))
 ```
 
 ### Tuples
@@ -286,3 +298,5 @@ flask run
 ```
 deactivate
 ```
+
+PS.: MATH 3e5 == 3 * 10 ^ 5
