@@ -732,10 +732,78 @@ We obtained the typical **shape of Markowitz Frontier** [Efficient Frontier])
 ### Obtaining The Efficient Frontier Part I, II, III
 - Explained in the Jupyter Notebook of the same name.
 
+## The Capital Asset Pricing Model (CAPM)
+(Risk-averse, prefer hogher returns, willing to buy the optimal portfolio)
 
+**Market Portfolio** - A combination of all the possible investments in the world (both bonds and stocks)
 
+- The only risk faced is the systematic one.
+- the CAPM assumes the existence of a risk-free asset
+- It has a lower expected rate of return because investors are only compensate for the added risk they are willing to bear.
+- Investors will allocate their money between the risk-free and the market portfolio.
+- The line that connects the risk-free rate and its tangent to the efficient frontier is called **the Capital Market Line**.
+- The point where the Capital Market Line intersects the efficient frontier is the market portfolio.
+- Depending on their risk preferences, they will choose to buy more of the risk-free asset or more of the market portfolio.
 
+### Beta (One of the main pillars of the CAPM)
 
+It helps us to quantify the relationship between a security and the overall market portfolio.
+
+**Safer Stocks** will earn **less** than the market portfolio when the economy grows.
+**Riskier Stocks** will earn **more** than the market portfolio when the economy grows.
+
+### Measuring Beta
+
+β = Cov(rx,rm) / σ²m
+
+- It can be calculated as the covariance between the stock and the market, divided by the variance of the market.
+- The riskier is the stock, the higher is its Beta and vice-versa.
+- Measures the market risk that cannot be avoided through diversification.
+- β = 0 (No Relationship) | β < 1 (Defensive) | β > 1 (Offensive)
+- **Example:** Walmart β = 0.09 | Ford β = 1.1
+- **Beta is a measurement that shows how risky an individual security is, regarding the rest of the market**
+
+### The Capital Asset Pricing Model
+ri = rf + βim(rm-rf)
+
+**Legend:**
+- rf = risk free
+- βim = Beta between the stock and the market
+- rm = market return
+
+#### Applying the CAPM in practice**
+Calculating P&G's expected rate of return
+
+* Risk-free
+Approximate with 10 year US government bond yield: 2.5%
+
+* Beta
+Approximate the market portfolio with the S&P 500: 0.62
+(The best proxy for market portfolio is a wide index traded in the home country of the security)
+
+* Equity Risk Premium
+Historically, it has been between 4,5% and 5.5%
+
+ri = rf + βim(rm-rf)
+r(i) = 2.5% + 0.62 * 5%
+r(i) = 5.6% 
+
+**Conclusion:** When an investor buys P&G's shares he would expect to earn 5.6% to be compensate for the risk he is taken. 
+
+### Sharpe Ratio
+
+**A rational investor considers both risk and return**
+
+sharpe_ratio = ri - rf / σi
+
+**Legends:**
+- rf = risk-free rate
+- ri = rate of return of the stock "i"
+- σi = standard deviation of the stock "i"
+
+The sharpe ratio allow us to compare:
+- Stock A vs Stock B
+- Investment Portfolio A vs Investment Portfolio B
 
 
 
